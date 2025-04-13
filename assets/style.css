@@ -1,7 +1,7 @@
 :root {
-    --global-primary-color: #1154c9;
-    --global-secondary-color: #d1d4fa;
-    --global-tertiary-color: #e5e5e5;
+    --global-primary-color: #0B57D0;
+    --global-secondary-color: #E5EDFF;
+    --global-tertiary-color: #F3F5F6;
 
     --local-font-color: #474747;
     --local-font-family: 'Lato', Arial, sans-serif;
@@ -15,13 +15,13 @@
     text-decoration: none;
     box-sizing: border-box;
     list-style: none;
-    font-size: 16px;
+    font-size: 14px;
     font-family: var(--local-font-family);
 }
 
 main {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,6 @@ main {
 
 .calculator {
     width: 280px;
-    margin-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,7 +38,7 @@ main {
     width: 100%;
     padding: 16px;
     border-radius: 16px;
-    border: 1px solid #acacac;
+    border: 1px solid #D2D2D2;
     display: flex;
     flex-direction: column;
 }
@@ -52,7 +51,8 @@ main {
 
 .calculator__screen__result {
     text-align: end;
-    font-size: 24px;
+    font-size: 30px;
+    line-height: 24px;
 }
 
 .calculator__screen__result:focus {
@@ -60,15 +60,22 @@ main {
 }
 
 .calculator__values {
-    gap: 5px;
+    gap: 4px;
     width: 100%;
     margin: 12px;
     display: flex;
     flex-direction: column;
 }
 
+div.row {
+    gap: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 button {
-    padding: 8px 0;
+    padding: 8px 2px;
     border-radius: 18px;
     width: calc(25% - 3px);
     cursor: pointer;
@@ -79,19 +86,23 @@ button {
 }
 
 button:hover {
-    background-color: #ced1e7;
+    background-color: #DEE1E3;
 }
 
-.calculator__values__aritmetic, .calculator__values__special {
+.calculator__values__special,
+.calculator__values__aritmetic {
     background-color: var(--global-secondary-color);
 }
 
-.calculator__values__aritmetic:hover, .calculator__values__special:hover {
-    background-color: #979ddc;
+.calculator__values__special:hover,
+.calculator__values__aritmetic:hover {
+    background-color: #D3E3FD;
 }
 
 .calculator__values__result {
     color: white;
+    font-size: 18px;
+    padding: 5.5px 2px;
     background-color: var(--global-primary-color);
 }
 

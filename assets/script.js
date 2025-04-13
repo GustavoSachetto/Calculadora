@@ -18,6 +18,14 @@ class Calculator {
         this.screen = screen;
     }
 
+    process(key) {
+        if (onlyNumbersRegex.test(key)) return this.setNumber(key);
+        if (onlyAritmeticOperatorsRegex.test(key)) return this.setAritimeticOperator(key);
+        if (key == 'Backspace') return this.setRemove();
+        if (key == 'Enter' || key == '=') return this.setCalculate();
+        if (key == 'c' || key == 'C') return this.setClear();
+    }
+
     setNumber(number) {
         number = parseInt(number);
 
@@ -29,7 +37,7 @@ class Calculator {
     }
 
     setRemove() {
-        if (this.current != 0) {
+        if (this.current != '') {
             this.current = this.current.toString().replace(/.$/, '');
         } else if (this.operator != '') {
             this.operator = this.operator.toString().replace(/.$/, '');
@@ -38,15 +46,16 @@ class Calculator {
         }
 
         let numberWithValueDefault = this.accumulator == '' ? '0' : this.accumulator;
+        let operatorWithSpaces = this.operator == '' ? '' : ` ${this.operator} `;
 
-        this.total = numberWithValueDefault + this.operator + this.current;
+        this.total = numberWithValueDefault + operatorWithSpaces + this.current;
         this.render();
     }
 
     setAritimeticOperator(operator) {
         if (this.accumulator != 0) {
             this.operator == '' ? this.operator = operator : this.calculate(), this.operator = operator;
-            this.total += operator;
+            this.total += ` ${operator} `;
 
             this.render();
         }
@@ -57,7 +66,7 @@ class Calculator {
     }
 
     setCalculate() {
-        if (this.current != 0) this.calculate();
+        if (this.current != '') this.calculate();
     }
 
     setClear() {
@@ -70,17 +79,9 @@ class Calculator {
         this.render();
     }
 
-    process(key) {
-        if (onlyNumbersRegex.test(key)) return this.setNumber(key);
-        if (onlyAritmeticOperatorsRegex.test(key)) return this.setAritimeticOperator(key);
-        if (key == 'Backspace') return this.setRemove();
-        if (key == 'Enter' || key == '=') return this.setCalculate();
-        if (key == 'c' || key == 'C') return this.setClear();
-    }
-
     calculate() {
         let num1 = parseFloat(this.accumulator);
-        let num2 = parseFloat(this.current);
+        let num2 = parseFloat(this.current == '' ? 0 : this.current);
         
         this.setHistoric(num1, num2);
 
