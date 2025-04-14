@@ -153,6 +153,7 @@ class Calculator {
     render() {
         this.screen.historic.innerHTML = this.historic;
         this.screen.result.innerHTML = this.total;
+        this.screen.result.setAttribute('title', this.total)
     }
 }
 

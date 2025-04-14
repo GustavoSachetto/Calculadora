@@ -51,9 +51,12 @@ main {
 }
 
 .calculator__screen__result {
+    cursor: text;
     text-align: end;
     font-size: 30px;
     line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .calculator__screen__result:focus {
@@ -68,7 +71,7 @@ main {
     flex-direction: column;
 }
 
-div.row {
+.row {
     gap: 4px;
     display: flex;
     align-items: center;
