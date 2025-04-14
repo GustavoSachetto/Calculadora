@@ -1,5 +1,5 @@
 const onlyNumbersRegex = /^[0-9]$/;
-const onlySpecialOperatorsRegex = /^(\%)$/;
+const onlySpecialOperatorsRegex = /^(\%|\.)$/;
 const onlyAritmeticOperatorsRegex = /^(\+|\-|\*|\/|\×|\÷)$/;
 
 const screenResult = document.querySelector('.calculator__screen__result');
@@ -63,18 +63,30 @@ class Calculator {
     }
 
     setSpecialOperator(operator) {
-        if (operator == '%' && this.current != '') {
-            this.current = (this.accumulator * this.current) / 100;
-            this.calculate();
-        } 
+        switch (operator) {
+            case '%':
+                this.setCalculateWithPorcentage();
+                break;
+            case '.': 
+                this.setFloatPoint();
+                break;
+        }
+        
+        this.render();
+    }
+
+    setFloatPoint() {
+        if (this.current != '' && !this.current.includes('.')) {
+            this.current += '.';
+            this.total += '.';
+        } else if (this.operator == '' && !this.accumulator.includes('.')) {
+            this.accumulator += '.';
+            this.total += '.';
+        }
     }
 
     setHistoric(num1, num2) {
         this.historic = `${num1} ${this.operator} ${num2} =`;
-    }
-
-    setCalculate() {
-        if (this.current != '') this.calculate();
     }
 
     setClear() {
@@ -85,6 +97,14 @@ class Calculator {
         this.historic = '';
 
         this.render();
+    }
+
+    setCalculate() {
+        if (this.current != '') this.calculate();
+    }
+
+    setCalculateWithPorcentage() {
+        if (this.current != '') this.calculateWithPorcentage();
     }
 
     calculate() {
@@ -114,6 +134,11 @@ class Calculator {
         this.render();
     }
 
+    calculateWithPorcentage() {
+        this.current = (this.accumulator * this.current) / 100;
+        this.calculate();
+    }
+
     reset() {
         this.current = '';
         this.operator = '';
@@ -137,5 +162,6 @@ document.addEventListener('keydown', (event) => {
 document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (event) => {
         calculator.process(event.target.innerHTML);
+        console.log(calculator);
     });
 });
