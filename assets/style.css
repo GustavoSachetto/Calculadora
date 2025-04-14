@@ -41,6 +41,7 @@ main {
     border: 1px solid #D2D2D2;
     display: flex;
     flex-direction: column;
+    user-select: none;
 }
 
 .calculator__screen__historic {
@@ -80,6 +81,7 @@ button {
     width: calc(25% - 3px);
     cursor: pointer;
     text-align: center;
+    user-select: none;
     color: var(--local-font-color);
     background-color: var(--global-tertiary-color);
     transition: 200ms;
