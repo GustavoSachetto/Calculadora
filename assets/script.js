@@ -162,6 +162,5 @@ document.addEventListener('keydown', (event) => {
 document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (event) => {
         calculator.process(event.target.innerHTML);
-        console.log(calculator);
     });
 });
