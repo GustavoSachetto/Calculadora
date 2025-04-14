@@ -1,6 +1,6 @@
 const onlyNumbersRegex = /^[0-9]$/;
 const onlySpecialOperatorsRegex = /^(\%|\.)$/;
-const onlyAritmeticOperatorsRegex = /^(\+|\-|\*|\/|\×|\÷)$/;
+const onlyAritmeticOperatorsRegex = /^(\+|\-|\*|\/|\×|\÷|\\|\^)$/;
 
 const screenResult = document.querySelector('.calculator__screen__result');
 const screenHistoric = document.querySelector('.calculator__screen__historic');
@@ -123,6 +123,12 @@ class Calculator {
             case '/':
             case '÷':
                 this.accumulator = this.total = num1 / num2;
+                break;
+            case '\\':
+                this.accumulator = this.total = (num1 / num2) | 0;
+                break;
+            case '^':
+                this.accumulator = this.total = num1 ** num2;
                 break;
             case '×':
             case '*':
