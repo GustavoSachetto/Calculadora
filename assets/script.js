@@ -1,5 +1,5 @@
 const onlyNumbersRegex = /^[0-9]$/;
-const onlySpecialOperatorsRegex = /^(|\%|\(|\))$/;
+const onlySpecialOperatorsRegex = /^(\%)$/;
 const onlyAritmeticOperatorsRegex = /^(\+|\-|\*|\/|\×|\÷)$/;
 
 const screenResult = document.querySelector('.calculator__screen__result');
@@ -21,6 +21,7 @@ class Calculator {
     process(key) {
         if (onlyNumbersRegex.test(key)) return this.setNumber(key);
         if (onlyAritmeticOperatorsRegex.test(key)) return this.setAritimeticOperator(key);
+        if (onlySpecialOperatorsRegex.test(key)) return this.setSpecialOperator(key);
         if (key == 'Backspace') return this.setRemove();
         if (key == 'Enter' || key == '=') return this.setCalculate();
         if (key == 'c' || key == 'C') return this.setClear();
@@ -59,6 +60,13 @@ class Calculator {
 
             this.render();
         }
+    }
+
+    setSpecialOperator(operator) {
+        if (operator == '%' && this.current != '') {
+            this.current = (this.accumulator * this.current) / 100;
+            this.calculate();
+        } 
     }
 
     setHistoric(num1, num2) {
