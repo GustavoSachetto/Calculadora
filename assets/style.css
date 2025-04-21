@@ -1,7 +1,7 @@
 :root {
     --global-primary-color: #0B57D0;
-    --global-secondary-color: #E5EDFF;
-    --global-tertiary-color: #F3F5F6;
+    --global-secondary-color: #d4e1ff;
+    --global-tertiary-color: #edf0f1;
 
     --local-font-color: #474747;
     --local-font-family: 'Lato', Arial, sans-serif;
@@ -21,6 +21,7 @@
 
 main {
     width: 100vw;
+    min-height: 400px;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -101,7 +102,7 @@ button:hover {
 
 .calculator__values__special:hover,
 .calculator__values__aritmetic:hover {
-    background-color: #D3E3FD;
+    background-color: #c1d8fd;
 }
 
 .calculator__values__result {
