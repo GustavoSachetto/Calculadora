@@ -9,6 +9,7 @@ class Calculator {
     total = '';
     current = '';
     accumulator = '';
+    limitOfNumbers = 8;
 
     operator = '';
     historic = '';
@@ -27,13 +28,21 @@ class Calculator {
         if (key == 'c' || key == 'C') return this.setClear();
     }
 
+    setCurrent(number) {
+        if (this.current.length <= this.limitOfNumbers) this.current += number;
+    }
+
+    setAccumulator(number) {
+        if (this.accumulator.length <= this.limitOfNumbers) this.accumulator += number;
+    }
+
     setNumber(number) {
         number = parseInt(number);
 
-        this.operator == '' ? this.accumulator += number : this.current += number;
-        let previusTotal = this.total == '0' ? '' : this.total;
+        this.operator == '' 
+            ? this.setAccumulator(number) 
+            : this.setCurrent(number);
 
-        this.total = previusTotal + number;
         this.render();
     }
 
@@ -46,10 +55,6 @@ class Calculator {
             this.accumulator = this.accumulator.toString().replace(/.$/, '');
         }
 
-        let numberWithValueDefault = this.accumulator == '' ? '0' : this.accumulator;
-        let operatorWithSpaces = this.operator == '' ? '' : ` ${this.operator} `;
-
-        this.total = numberWithValueDefault + operatorWithSpaces + this.current;
         this.render();
     }
 
@@ -107,6 +112,11 @@ class Calculator {
         if (this.current != '') this.calculateWithPorcentage();
     }
 
+    alertCalculateNotAllowed() {
+        alert('Descupe mas infelizmente esse calculo não será possivel'); 
+        this.setClear();
+    }
+
     calculate() {
         let num1 = parseFloat(this.accumulator);
         let num2 = parseFloat(this.current == '' ? 0 : this.current);
@@ -128,7 +138,7 @@ class Calculator {
                 this.accumulator = this.total = (num1 / num2) | 0;
                 break;
             case '^':
-                this.accumulator = this.total = num1 ** num2;
+                num2 < 10 ? this.accumulator = this.total = num1 ** num2 : this.alertCalculateNotAllowed();
                 break;
             case '×':
             case '*':
@@ -145,15 +155,24 @@ class Calculator {
         this.calculate();
     }
 
+    loadTotalOnScreen() {
+        let numberWithValueDefault = this.accumulator == '' ? '0' : this.accumulator;
+        let operatorWithSpaces = this.operator == '' ? '' : ` ${this.operator} `;
+
+        this.total = numberWithValueDefault + operatorWithSpaces + this.current;
+    }
+
     reset() {
         this.current = '';
         this.operator = '';
     }
 
     render() {
+        this.loadTotalOnScreen();
+
         this.screen.historic.innerHTML = this.historic;
         this.screen.result.innerHTML = this.total;
-        this.screen.result.setAttribute('title', this.total)
+        this.screen.result.setAttribute('title', this.total);
     }
 }
 
